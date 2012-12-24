@@ -23,3 +23,9 @@ module.exports = function(config) {
   return widget;
 }
 ```
+
+TODO
+
+* unique validation
+* document grouping
+* reds search
