@@ -24,8 +24,7 @@ describe('redis write', function(){
   it('should create error', function(done) {
     var obj = { name: 'foo', value: 'bar', colors: ['red','1',2]};
     foo.set("new", obj, function(e, doc) {
-      //console.log(doc[0]);
-      assert.ok(doc[0] === 'key required');
+      assert.ok(doc[0] === 'key required!');
       done();
     });
   });

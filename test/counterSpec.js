@@ -5,8 +5,8 @@ var client = redis.createClient();
 
 describe('redis counter', function(){
   before(function(done) {
-    client.del('counters:test1');
-    client.del('counters:test2');
+    client.del('default:counters:test1');
+    client.del('default:counters:test2');
     done();
   });
   it('should start at 0 when no seed', function(done) {
