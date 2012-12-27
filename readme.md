@@ -19,6 +19,9 @@ module.exports = function(config) {
       in: [redis.counter('foo')]
     }
   });
+  widget.constructor.read = redis.read;
+  widget.constructor.write = redis.write;
+  widget.constructor.remove = redis.remove;
   
   return widget;
 }
