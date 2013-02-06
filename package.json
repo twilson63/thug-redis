@@ -1,6 +1,6 @@
 {
   "name": "thug-redis",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "A set of redis methods for thug models",
   "main": "index.js",
   "directories": {

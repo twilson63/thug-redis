@@ -16,9 +16,10 @@ module.exports = function(config) {
       cb({});
     },
     write: function(id, doc, cb) {
-      if (id === 'new' && !doc.id) { return cb(['key required!']); }
+      if (id !== 'new' && !doc.id) { return cb(['key required!']); }
       if (id === 'new') { id = doc.id }
       client.set(namespace + ":" + id, JSON.stringify(doc), function(err, obj) {
+        console.log(doc);
         if(!err) { cb(doc) };
       });
     },
@@ -29,6 +30,26 @@ module.exports = function(config) {
     },
     seed: function(field, value) {
       client.set(namespace + ':counters:' + field, value);
+    },
+    all: function(cb) {
+      var self = this;
+      var keys = namespace + ':*';
+      client.keys(keys, function(err, data) {
+        var count = data.length - 1;
+        var results = [];
+        function done() {
+          cb(results);
+        }
+        data.forEach(function(key) {
+          if (key !== namespace + ':counters:id') { 
+            client.get(key, function(err, item) {
+              count = count - 1;
+              results.push(JSON.parse(item));
+              if (count === 0) { done();  }
+            });
+          }
+        });
+      });
     },
     counter: function(field) {
       var key = namespace + ':counters:' + field;
